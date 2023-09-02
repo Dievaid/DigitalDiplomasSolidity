@@ -48,7 +48,7 @@ contract DiplomaProvider {
         int256 _mark,
         string memory _title,
         string memory _dType
-    ) public payable {
+    ) public {
         diplomaCount++;
         diplomas[_id] = Diploma(_id, _firstName, _lastName, _mark, _title, _dType, msg.sender, msg.sender, false);
         emit DiplomaCreated(_id, _firstName, _lastName, _mark, _title, _dType, msg.sender, false);
