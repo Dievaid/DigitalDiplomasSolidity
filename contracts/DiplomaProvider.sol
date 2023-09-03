@@ -39,7 +39,7 @@ contract DiplomaProvider {
         bool emited
     );
 
-    mapping(string => Diploma) public diplomas;
+    Diploma[] diplomasArray;
 
     function createDiploma(
         string memory _id,
@@ -50,15 +50,15 @@ contract DiplomaProvider {
         string memory _dType
     ) public {
         diplomaCount++;
-        diplomas[_id] = Diploma(_id, _firstName, _lastName, _mark, _title, _dType, msg.sender, msg.sender, false);
+        diplomasArray.push(Diploma(_id, _firstName, _lastName, _mark, _title, _dType, msg.sender, msg.sender, false));
         emit DiplomaCreated(_id, _firstName, _lastName, _mark, _title, _dType, msg.sender, false);
     }
 
-    function sendDiploma(string memory _id) public {
-        Diploma memory _diploma = diplomas[_id];
+    function sendDiploma(uint256 _id) public {
+        Diploma memory _diploma = diplomasArray[_id];
         _diploma.owner = msg.sender;
         _diploma.emitted = true;
-        diplomas[_id] = _diploma;
+        diplomasArray[_id] = _diploma;
         
         emit DiplomaSent(
             _diploma.id,
